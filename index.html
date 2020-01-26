@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de IMC</title>
+  </head>
+  <body>
+    <div id="app">
+      <label for="">PESO EM KG</label>
+      <input v-model="peso" type="number" />
+      <br />
+      <label for="">ALTURA EM CM</label>
+      <input v-model="altura" type="number" />
+      <hr />
+      <button v-on:click="CalcularIMC()">CALCULAR IMC</button>
+      <br />
+      <h3>{{imc}}</h3>
+    </div>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          peso: "",
+          altura: "",
+          imc: "00"
+        },
+        methods: {
+          CalcularIMC: function() {
+            let alt = this.altura / 100;
+            let soma = this.peso / (alt * alt);
+            let resultado = soma.toFixed(1);
+            this.imc = resultado;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
