@@ -15,7 +15,8 @@
       <hr />
       <button v-on:click="CalcularIMC()">CALCULAR IMC</button>
       <br />
-      <h3>{{imc}}</h3>
+      <h3>{{resultado.imc}}</h3>
+      <h4>{{resultado.desc}}</h4>
     </div>
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -25,14 +26,38 @@
         data: {
           peso: "",
           altura: "",
-          imc: "00"
+          resultado: {
+            imc: "00",
+            desc: ""
+          }
         },
         methods: {
           CalcularIMC: function() {
             let alt = this.altura / 100;
             let soma = this.peso / (alt * alt);
-            let resultado = soma.toFixed(1);
-            this.imc = resultado;
+            let res = soma.toFixed(1);
+            this.resultado.imc = res;
+            if (res < 17) {
+              this.resultado.desc = "Muito abaixo do peso";
+            }
+            if (res >= 17 && res <= 18.49) {
+              this.resultado.desc = "Abaixo do peso";
+            }
+            if (res >= 18.5 && res <= 24.99) {
+              this.resultado.desc = "Peso normal";
+            }
+            if (res >= 25 && res <= 29.99) {
+              this.resultado.desc = "Acima do peso";
+            }
+            if (res >= 30 && res <= 34.99) {
+              this.resultado.desc = "Obesidade I";
+            }
+            if (res >= 35 && res <= 39.99) {
+              this.resultado.desc = "Obesidade II";
+            }
+            if (res >= 40) {
+              this.resultado.desc = "Obesidade III";
+            }
           }
         }
       });
